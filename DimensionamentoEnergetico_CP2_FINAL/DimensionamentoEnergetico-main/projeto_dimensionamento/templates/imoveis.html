@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block titulo %}Meus Imóveis — Dimensionamento Energético{% endblock %}
+{% block conteudo %}
+<div class="container">
+  <div class="container__cabecalho">
+    <h1>Meus Imóveis</h1>
+    <a class="botao-secundario" href="{{ url_for('novo_imovel') }}">+ Novo imóvel</a>
+  </div>
+
+  {% if imoveis %}
+  <div class="lista-cartoes">
+    {% for imovel in imoveis %}
+    <div class="cartao">
+      <div class="cartao__info">
+        <h2>{{ imovel.nome }}</h2>
+        <p>{{ imovel.endereco or "Sem endereço cadastrado" }}</p>
+      </div>
+      <div class="cartao__acoes">
+        <a class="botao-secundario" href="{{ url_for('detalhe_imovel', id_imovel=imovel.id) }}">Ver detalhes</a>
+        <a class="botao-secundario" href="{{ url_for('editar_imovel', id_imovel=imovel.id) }}">Editar</a>
+        <form method="post" action="{{ url_for('excluir_imovel', id_imovel=imovel.id) }}"
+          onsubmit="return confirm('Excluir este imóvel? Essa ação não pode ser desfeita.');">
+          <button type="submit" class="botao-link">Excluir</button>
+        </form>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="estado-vazio">Você ainda não cadastrou nenhum imóvel. Clique em "+ Novo imóvel" para começar.</p>
+  {% endif %}
+</div>
+{% endblock %}

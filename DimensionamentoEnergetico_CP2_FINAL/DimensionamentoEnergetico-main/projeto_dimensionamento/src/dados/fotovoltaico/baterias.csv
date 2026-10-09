@@ -1,0 +1,7 @@
+﻿id,fabricante,modelo,tecnologia,tensao_nominal_v,capacidade_ah,capacidade_kwh,dod_pct,ciclos,preco_brl,fornecedor,data_coleta,url_fonte
+BAT001,SAJ,B3-5.0-LV,LiFePO4,51.2,100,5.12,90,6000,6499.9,Loja Cearasol,2026-10-09,https://loja.cearasol.com.br/produto/bateria-saj-b3-5-0-lv/
+BAT002,Growatt,HOPE 5.0L-B1,LiFePO4,51.2,100,5.12,90,,,,2026-10-09,https://br.growatt.com/products/hope-5.0-b1
+BAT003,GoodWe,LX A5.0-30 (Lynx A G3),LiFePO4,51.2,100,5.12,,,,,2026-10-09,https://en.goodwe.com/Ftp/EN/Downloads/Datasheet/GW_Lynx-A-G3_Datasheet-EN.pdf
+BAT004,Hoymiles,LB-6D-G3,LiFePO4,,,,,,,,2026-10-09,https://www.hoymiles.com/ysecm_api?c=api&cache_siteid=5&get=&m=template&name=list_data.html&s=download
+BAT005,EPEVER,LFP5.12KWH25.6V-P65L2GF40,LiFePO4,25.6,205,5.248,,6000,5999.0,NeoSolar,2026-10-09,https://www.neosolar.com.br/loja/bateria-litio-lfp-25v-205ah-5248-wh-epever-p65l2.html
+BAT006,Deye,SE-G5.1 Pro-B,LiFePO4,51.2,100,5.12,90,6000,,,2026-10-09,https://deye.com/pt/product/se-g5-1-pro-b/

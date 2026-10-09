@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block titulo %}Dimensionamento Fotovoltaico — {{ imovel.nome }}{% endblock %}
+{% block conteudo %}
+<div class="container">
+  <div class="container__cabecalho"><h1>Dimensionamento fotovoltaico</h1><a class="botao-secundario" href="{{ url_for('detalhe_imovel', id_imovel=imovel.id) }}">Voltar ao imóvel</a></div>
+  <p class="subtitulo-pagina">Imóvel: {{ imovel.nome }} — pré-dimensionamento acadêmico, não substitui projeto técnico.</p>
+  <form method="post" class="formulario">
+    <label>Consumo de referência (kWh/mês)<input type="number" name="consumo_kwh" min="0.1" step="0.01" value="{{ '%.2f'|format(consumo_medio) }}" required></label>
+    <label>Localização da residência<input type="text" name="localizacao" value="{{ imovel.endereco or '' }}" placeholder="Cidade/UF ou endereço aproximado" required></label>
+    <label>Horas de Sol Pleno (HSP) médias por dia<input type="number" name="hsp" min="0.1" max="10" step="0.1" value="4.5" required></label>
+    <label>Fonte do valor de HSP<input type="text" name="fonte_hsp" value="" placeholder="Ex.: CRESESB/SunData, estação ou estudo local" required></label>
+    <label>Percentual do consumo a atender (%)<input type="number" name="percentual" min="1" max="100" step="1" value="100" required></label>
+    <label>Armazenamento por baterias?
+      <select name="baterias" id="baterias" onchange="document.getElementById('autonomia-box').hidden=this.value!=='sim'">
+        <option value="nao">Não</option><option value="sim">Sim</option>
+      </select>
+    </label>
+    <div id="autonomia-box" hidden><label>Autonomia desejada (horas)<input type="number" name="autonomia" min="1" max="24" step="1" value="8"></label></div>
+    <button type="submit" class="botao-principal">Calcular orçamento</button>
+  </form>
+  {% if resultado %}
+  <section class="secao">
+    <h2>Resultado do dimensionamento</h2>
+    <p><strong>Localização:</strong> {{ resultado.localizacao }}. <strong>Fonte de HSP declarada:</strong> {{ resultado.fonte_hsp }}.</p>
+    <div class="resumo-grid">
+      <div class="resumo-item"><span class="resumo-item__rotulo">Consumo de referência</span><span class="resumo-item__valor">{{ '%.2f'|format(resultado.consumo) }} kWh/mês</span></div>
+      <div class="resumo-item"><span class="resumo-item__rotulo">Atendimento desejado</span><span class="resumo-item__valor">{{ '%.0f'|format(resultado.percentual) }}%</span></div>
+      <div class="resumo-item"><span class="resumo-item__rotulo">Energia mensal alvo</span><span class="resumo-item__valor">{{ '%.2f'|format(resultado.energia) }} kWh</span></div>
+      <div class="resumo-item"><span class="resumo-item__rotulo">Potência calculada</span><span class="resumo-item__valor">{{ '%.2f'|format(resultado.potencia) }} kWp</span></div>
+      <div class="resumo-item"><span class="resumo-item__rotulo">Potência instalada</span><span class="resumo-item__valor">{{ '%.2f'|format(resultado.instalada) }} kWp</span></div>
+      <div class="resumo-item"><span class="resumo-item__rotulo">HSP / fator global</span><span class="resumo-item__valor">{{ resultado.hsp }} h/dia / {{ resultado.fator }}</span></div>
+      <div class="resumo-item"><span class="resumo-item__rotulo">Geração mensal estimada</span><span class="resumo-item__valor">{{ '%.2f'|format(resultado.geracao_estimada) }} kWh/mês</span></div>
+    </div>
+    <h3>Módulos fotovoltaicos</h3>
+    <p>{{ resultado.qtd_modulos }} × {{ resultado.modulo.fabricante }} {{ resultado.modulo.modelo }} ({{ resultado.modulo.potencia_wp }} Wp).</p>
+    <p>Arranjo preliminar: {{ resultado.strings.numero_strings }} string(s), com {{ resultado.strings.modulos_por_string }} módulo(s) em série por string; tensão de operação estimada por string: {{ resultado.strings.tensao_operacao_string_v }} V.</p>
+    <p>Custo dos módulos: <strong>R$ {{ '%.2f'|format(resultado.custo_modulos) }}</strong></p>
+    <h3>Inversor</h3>
+    <p>{{ resultado.inversor.fabricante }} {{ resultado.inversor.modelo }} — {{ resultado.inversor.potencia_nominal_w }} W ({{ resultado.inversor.tipo }}).</p>
+    <p>Custo do inversor: <strong>R$ {{ '%.2f'|format(resultado.custo_inversor) }}</strong></p>
+    {% if resultado.usar_bateria %}
+      <h3>Armazenamento</h3>
+      <p>Autonomia solicitada: {{ resultado.autonomia }} h. Capacidade nominal necessária estimada: {{ '%.2f'|format(resultado.capacidade_necessaria) }} kWh. Seleção: {{ resultado.qtd_baterias }} × {{ resultado.bateria.fabricante }} {{ resultado.bateria.modelo }}; capacidade nominal instalada {{ '%.2f'|format(resultado.capacidade_instalada) }} kWh e capacidade útil estimada por unidade {{ '%.2f'|format(resultado.capacidade_util_bateria) }} kWh.</p>
+      <p>Custo das baterias: <strong>R$ {{ '%.2f'|format(resultado.custo_baterias) }}</strong></p>
+    {% else %}<p>Solução sem baterias; custo de armazenamento: R$ 0,00.</p>{% endif %}
+    <h2>Orçamento estimado de equipamentos</h2>
+    <div class="resumo-grid">
+      <div class="resumo-item"><span class="resumo-item__rotulo">Módulos</span><span class="resumo-item__valor">R$ {{ '%.2f'|format(resultado.custo_modulos) }}</span></div>
+      <div class="resumo-item"><span class="resumo-item__rotulo">Inversor</span><span class="resumo-item__valor">R$ {{ '%.2f'|format(resultado.custo_inversor) }}</span></div>
+      <div class="resumo-item"><span class="resumo-item__rotulo">Baterias</span><span class="resumo-item__valor">R$ {{ '%.2f'|format(resultado.custo_baterias) }}</span></div>
+      <div class="resumo-item"><span class="resumo-item__rotulo">Total de equipamentos</span><span class="resumo-item__valor">R$ {{ '%.2f'|format(resultado.custo_total) }}</span></div>
+    </div>
+    <p><strong>Inclui:</strong> {{ resultado.custos_inclusos }}. <strong>Não inclui:</strong> {{ resultado.custos_excluidos }}.</p>
+    <p class="alerta">Estimativa acadêmica. O arranjo de strings é apenas uma triagem elétrica simplificada e não considera correção de tensão por temperatura, orientação, sombreamento, cabos, proteções, normas, homologação nem validação do instalador. Confirme preços e compatibilidade com os fabricantes/fornecedores antes de qualquer compra.</p>
+  </section>
+  {% endif %}
+  <section class="secao">
+    <h2>Base de equipamentos</h2>
+    <p>Datasets carregados: {{ modulos|length }} módulos, {{ inversores|length }} inversores e {{ baterias|length }} baterias.</p>
+    <p>Itens com preço preenchido: {{ modulos_com_preco }} módulos, {{ inversores_com_preco }} inversores e {{ baterias_com_preco }} baterias. Produtos sem preço confirmado ficam fora do orçamento; o sistema não estima nem inventa valores. Consulte <code>src/dados/fotovoltaico/FONTES_E_METODOLOGIA.md</code> para fontes, limitações e critérios de seleção.</p>
+  </section>
+</div>
+{% endblock %}

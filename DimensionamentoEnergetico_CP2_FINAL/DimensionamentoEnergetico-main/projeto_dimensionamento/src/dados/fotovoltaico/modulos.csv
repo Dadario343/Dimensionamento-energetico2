@@ -1,0 +1,12 @@
+﻿id,fabricante,modelo,potencia_wp,voc_v,isc_a,vmp_v,imp_a,eficiencia_pct,preco_brl,fornecedor,data_coleta,url_fonte
+MOD001,Canadian Solar,CS6W-540MS,540,49.2,13.9,41.3,13.08,20.9,,,2026-10-09,https://www.canadiansolar.com/na/wp-content/uploads/sites/3/2026/01/CS-Datasheet-HiKu6_CS6W-MS_v2.7_EN-2278mm.pdf
+MOD002,Canadian Solar,CS6W-545MS,545,49.4,13.95,41.5,13.14,21.1,,,2026-10-09,https://www.canadiansolar.com/na/wp-content/uploads/sites/3/2026/01/CS-Datasheet-HiKu6_CS6W-MS_v2.7_EN-2278mm.pdf
+MOD003,Canadian Solar,CS6W-550MS,550,49.6,14.0,41.7,13.2,21.29,660.3,Minha Casa Solar,2026-10-09,https://www.minhacasasolar.com.br/painel-solar-canadian-monocristalino-550w-half-cell-cs6w-550ms-83846
+MOD004,Canadian Solar,CS6W-555MS,555,49.8,14.05,41.9,13.25,21.48,,,2026-10-09,https://www.canadiansolar.com/na/wp-content/uploads/sites/3/2026/01/CS-Datasheet-HiKu6_CS6W-MS_v2.7_EN-2278mm.pdf
+MOD005,Canadian Solar,CS6W-560MS,560,50.0,14.1,42.1,13.31,21.68,,,2026-10-09,https://www.canadiansolar.com/na/wp-content/uploads/sites/3/2026/01/CS-Datasheet-HiKu6_CS6W-MS_v2.7_EN-2278mm.pdf
+MOD006,JA Solar,JAM72S30-525/MR,525,46.05,10.97,38.36,10.35,20.3,,,2026-10-09,https://www.jasolar.com/uploadfile/2020/1127/20201127115120294.pdf
+MOD007,JA Solar,JAM72S30-530/MR,530,46.18,11.01,38.57,10.39,20.5,,,2026-10-09,https://www.jasolar.com/uploadfile/2020/1127/20201127115120294.pdf
+MOD008,JA Solar,JAM72S30-535/MR,535,46.31,11.05,38.78,10.43,20.7,,,2026-10-09,https://www.jasolar.com/uploadfile/2020/1127/20201127115120294.pdf
+MOD009,JA Solar,JAM72S30-540/MR,540,46.43,11.09,38.99,10.47,20.9,,,2026-10-09,https://www.jasolar.com/uploadfile/2020/1127/20201127115120294.pdf
+MOD010,JA Solar,JAM72S30-545/MR,545,46.55,11.13,39.2,10.51,21.1,,,2026-10-09,https://www.jasolar.com/uploadfile/2020/1127/20201127115120294.pdf
+MOD011,JA Solar,JAM72S30-550/MR,550,46.68,11.17,39.43,10.55,21.3,,,2026-10-09,https://www.jasolar.com/uploadfile/2020/1127/20201127115120294.pdf

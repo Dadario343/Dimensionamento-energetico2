@@ -1,0 +1,9 @@
+﻿id,fabricante,modelo,tipo,potencia_nominal_w,potencia_max_fv_w,tensao_max_entrada_v,faixa_mppt_min_v,faixa_mppt_max_v,corrente_max_entrada_a,numero_mppt,compativel_bateria,preco_brl,fornecedor,data_coleta,url_fonte
+INV001,SAJ,H2-5K-LS2,híbrido,5000,10000,500,90,480,20,2,sim,7890.77,Meu Gerador,2026-10-09,https://www.meugerador.com.br/products/inversor-solar-hibrido-saj-5kw-h2-5k-ls2-220v-2mppt-48v-monitoramento-wifi
+INV002,Growatt,MIN 5000TL-X,on-grid,5000,7500,550,80,550,13.5,2,não,,,2026-10-09,https://www.growatt.com/
+INV003,Deye,SUN-5K-SG01LP1-US,híbrido,5000,6500,500,150,425,13,2,sim,,,2026-10-09,https://deye.com/pt/product/sun-5-6-7-6-8k-sg01lp1-us/
+INV004,Sungrow,SG5.0RS,on-grid,5000,7500,600,40,560,16,2,não,,,2026-10-09,https://info-support.sungrowpower.com/product-materials/3f9aaa85-76f8-444a-b773-f162c8dc6b26.pdf
+INV005,Solis,S6-GR1P5K,on-grid,5000,7500,550,90,550,16,2,não,,,2026-10-09,https://www.solisinverters.com/br/solarinverter2/2500_6000w_s6_br.html
+INV006,GoodWe,GW5000-MS,on-grid,5000,10000,600,80,550,16,3,não,,,2026-10-09,https://en.goodwe.com/Ftp/Downloads/Datasheet/AU/GW_MS_Datasheet-AU.pdf
+INV007,Huawei,SUN2000-5KTL-L1,híbrido,5000,7500,600,90,560,12.5,2,não,,,2026-10-09,https://solar.huawei.com/admin/asset/v1/pro/view/1e029d00296a4b87a9823fd083db547e.pdf
+INV008,SAJ,R5-5K-S2,on-grid,5000,7500,600,90,550,12.5,2,não,,,2026-10-09,https://img.saj-electric.com/file/R5-3~8K-S2-15%20Series%20Datasheet-20230505093247335.pdf

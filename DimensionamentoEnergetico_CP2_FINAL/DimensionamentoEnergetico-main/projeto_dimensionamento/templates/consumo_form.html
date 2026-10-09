@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block titulo %}Registrar consumo — {{ imovel.nome }}{% endblock %}
+{% block conteudo %}
+<div class="container container--estreito">
+  <div class="container__cabecalho">
+    <h1>Registrar consumo mensal</h1>
+  </div>
+  <p class="subtitulo-pagina">Imóvel: {{ imovel.nome }}</p>
+  <p style="font-size:0.88rem; color:var(--texto-escuro-suave); margin-top:-1.25rem;">
+    Consumo estimado com base nos equipamentos cadastrados:
+    <strong>{{ "%.2f"|format(consumo_estimado) }} kWh</strong>
+  </p>
+
+  <form method="post" novalidate id="formConsumo">
+    <div class="campo">
+      <label for="mes">Mês/Ano de referência</label>
+      <input type="text" id="mes" name="mes" placeholder="Ex: Março/2025" required />
+    </div>
+
+    <div class="campo">
+      <label class="lembrar">
+        <input type="checkbox" id="usarEstimado" name="usar_estimado" value="sim" checked />
+        <span>Usar o valor estimado como consumo do mês</span>
+      </label>
+    </div>
+
+    <div class="campo" id="campoConsumoManual">
+      <label for="consumo_kwh">Consumo real do mês (kWh)</label>
+      <input type="number" step="0.01" min="0.01" id="consumo_kwh" name="consumo_kwh" placeholder="Ex: 180" />
+    </div>
+
+    <button type="submit" class="botao-entrar">Registrar consumo</button>
+  </form>
+
+  <p class="form-login__rodape">
+    <a href="{{ url_for('detalhe_imovel', id_imovel=imovel.id) }}">Voltar para o imóvel</a>
+  </p>
+</div>
+
+<script>
+  const usarEstimado = document.getElementById("usarEstimado");
+  const campoConsumoManual = document.getElementById("campoConsumoManual");
+  const consumoKwh = document.getElementById("consumo_kwh");
+
+  function atualizarCampoManual() {
+    if (usarEstimado.checked) {
+      campoConsumoManual.classList.add("oculto");
+      consumoKwh.required = false;
+    } else {
+      campoConsumoManual.classList.remove("oculto");
+      consumoKwh.required = true;
+    }
+  }
+
+  usarEstimado.addEventListener("change", atualizarCampoManual);
+  atualizarCampoManual();
+</script>
+{% endblock %}
