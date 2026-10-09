@@ -1,1 +1,0 @@
-# Dimensionamento-energetico2
