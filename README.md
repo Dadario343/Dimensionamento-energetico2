@@ -20,7 +20,33 @@ Sistema para estimativa do consumo médio mensal de energia elétrica de uma res
 * Remover residências (user / sistema)
 * Gerar relatório (user / sistema)
 * Gerar calculos (sistema)
+* Dimensionar sistema solar fotovoltaico a partir do consumo do imóvel (user / sistema)
+* Selecionar módulos, inversor e baterias a partir de datasets CSV (sistema)
+* Gerar estimativa de orçamento dos equipamentos (sistema)
 * Sair (user)
+
+# Documentação do projeto
+
+A documentação completa (arquitetura, fórmulas, datasets, cenários de teste, limitações e fontes) está em PDF:
+
+**[Documentacao_Projeto.pdf](projeto_dimensionamento/docs/Documentacao_Projeto.pdf)**
+
+Resumo do que o documento cobre:
+
+| Seção | Conteúdo |
+|---|---|
+| Arquitetura | Estrutura de pastas, responsabilidade de cada módulo e fluxo Imóvel → Consumo → HSP → Dimensionamento → Seleção → Baterias → Orçamento → Proposta |
+| Dimensionamento FV | Entradas, validações, fórmulas (`E_FV`, `P_FV`, `N`, `P_instalada`) e origem das premissas (HSP, η = 0,80) |
+| Datasets | Schemas e conteúdo de `modulos.csv` (11), `inversores.csv` (8) e `baterias.csv` (6), com a situação dos preços |
+| Seleção e compatibilidade | Regras de potência, tensão, faixa MPPT, corrente e strings; filtro para inversor híbrido e bateria |
+| Orçamento | O que entra e o que fica de fora do valor exibido |
+| Cenários e testes | Cenário A (sem baterias) e B (com baterias, 8 h) gerados pelo sistema; 10 testes automatizados |
+| Limitações | Pendências de dados, simplificações de cálculo e pontos de segurança a melhorar |
+
+Documentos relacionados em `projeto_dimensionamento/`:
+
+* `docs/SPRINT2_CP2.md`: modelagem da Sprint 2 (user stories, critérios de aceite, tasks e dependências).
+* `src/dados/fotovoltaico/FONTES_E_METODOLOGIA.md`: fontes técnicas e de preço, regras de cálculo e pendências dos datasets.
 
 # Product Backlog - Sistema de Dimensionamento Energético Residencial
 
