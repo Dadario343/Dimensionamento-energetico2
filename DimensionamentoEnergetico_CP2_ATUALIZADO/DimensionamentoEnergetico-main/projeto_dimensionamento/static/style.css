@@ -1,0 +1,680 @@
+/* =========================================================
+   Dimensionamento Energético — Tela de Login
+   Paleta inspirada em quadros de energia / medidores elétricos
+   ========================================================= */
+
+:root {
+  --bg-dark: #0F1619;
+  --painel-esquerdo: #142229;
+  --trilha: #2C4A4A;
+  --cobre: #D98E3B;
+  --cobre-claro: #F0AE5C;
+  --texto-claro: #EAF0F2;
+  --texto-claro-suave: #8FA3AA;
+
+  --card-bg: #F6F4EF;
+  --texto-escuro: #1C2528;
+  --texto-escuro-suave: #6C7680;
+  --borda-input: #D8D2C4;
+  --borda-sutil: #24333B;
+
+  --fonte-titulo: "Space Grotesk", sans-serif;
+  --fonte-corpo: "Inter", sans-serif;
+  --fonte-mono: "JetBrains Mono", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--fonte-corpo);
+  color: var(--texto-escuro);
+  background: var(--card-bg);
+}
+
+.tela {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+}
+
+/* ---------- Painel esquerdo (identidade) ---------- */
+
+.painel-info {
+  position: relative;
+  background: linear-gradient(175deg, var(--bg-dark) 0%, var(--painel-esquerdo) 100%);
+  overflow: hidden;
+  padding: 4rem 3.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.painel-info__trilhas {
+  position: absolute;
+  inset: 0;
+  opacity: 0.55;
+}
+
+.painel-info__trilhas svg {
+  width: 100%;
+  height: 100%;
+}
+
+.painel-info__trilhas path {
+  fill: none;
+  stroke: var(--trilha);
+  stroke-width: 1.5;
+}
+
+.painel-info__trilhas circle {
+  fill: var(--cobre);
+  opacity: 0.7;
+}
+
+.painel-info__conteudo {
+  position: relative;
+  z-index: 1;
+  max-width: 30rem;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0 0 2.75rem;
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--texto-claro);
+  letter-spacing: 0.01em;
+}
+
+.marca__icone {
+  width: 1.6rem;
+  height: 1.6rem;
+  color: var(--cobre-claro);
+  flex-shrink: 0;
+}
+
+.marca__icone svg {
+  width: 100%;
+  height: 100%;
+}
+
+.painel-info h1 {
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  font-size: 2rem;
+  line-height: 1.28;
+  color: var(--texto-claro);
+  margin: 0 0 1.1rem;
+  max-width: 24ch;
+}
+
+.descricao {
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--texto-claro-suave);
+  margin: 0 0 2.75rem;
+  max-width: 38ch;
+}
+
+/* Mostrador tipo medidor de energia */
+
+.medidor {
+  border-left: 3px solid var(--cobre);
+  padding: 0.25rem 0 0.25rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.medidor__rotulo {
+  font-size: 0.78rem;
+  color: var(--texto-claro-suave);
+}
+
+.medidor__valor {
+  font-family: var(--fonte-mono);
+  font-weight: 600;
+  font-size: 2.5rem;
+  color: var(--cobre-claro);
+  line-height: 1;
+  text-shadow: 0 0 22px rgba(240, 174, 92, 0.35);
+}
+
+.medidor__decimal {
+  font-size: 1.6rem;
+}
+
+.medidor__unidade {
+  font-size: 1.1rem;
+  color: var(--texto-claro-suave);
+  font-weight: 500;
+  margin-left: 0.2rem;
+}
+
+.medidor__pico {
+  font-size: 0.8rem;
+  color: var(--texto-claro-suave);
+}
+
+/* ---------- Painel direito (formulário) ---------- */
+
+.painel-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  background: var(--card-bg);
+}
+
+.form-login {
+  width: 100%;
+  max-width: 23rem;
+}
+
+.form-login__cabecalho {
+  margin-bottom: 2.25rem;
+}
+
+.form-login__cabecalho h2 {
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  font-size: 1.6rem;
+  margin: 0 0 0.4rem;
+  color: var(--texto-escuro);
+}
+
+.form-login__cabecalho p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--texto-escuro-suave);
+}
+
+.campo {
+  margin-bottom: 1.5rem;
+}
+
+.campo label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--texto-escuro);
+  margin-bottom: 0.5rem;
+}
+
+.campo input[type="email"],
+.campo input[type="password"],
+.campo input[type="text"] {
+  width: 100%;
+  border: none;
+  border-bottom: 1.5px solid var(--borda-input);
+  background: transparent;
+  padding: 0.55rem 0.1rem;
+  font-family: var(--fonte-corpo);
+  font-size: 0.97rem;
+  color: var(--texto-escuro);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.campo input::placeholder {
+  color: #ABA394;
+}
+
+.campo input:focus {
+  border-bottom-color: var(--cobre);
+}
+
+.campo__senha {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.campo__senha input {
+  padding-right: 2.1rem;
+}
+
+.botao-olho {
+  position: absolute;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  background: none;
+  border: none;
+  color: var(--texto-escuro-suave);
+  cursor: pointer;
+  padding: 0;
+}
+
+.botao-olho svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.botao-olho--ativo,
+.botao-olho:hover {
+  color: var(--cobre);
+}
+
+.botao-olho:focus-visible,
+.form-login a:focus-visible,
+.form-login input:focus-visible,
+.botao-entrar:focus-visible {
+  outline: 2px solid var(--cobre);
+  outline-offset: 2px;
+}
+
+.campo--linha {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.lembrar {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  color: var(--texto-escuro-suave);
+  cursor: pointer;
+}
+
+.lembrar input[type="checkbox"] {
+  accent-color: var(--cobre);
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+.link-esqueci {
+  font-size: 0.85rem;
+  color: var(--texto-escuro-suave);
+  text-decoration: none;
+}
+
+.link-esqueci:hover {
+  color: var(--cobre);
+  text-decoration: underline;
+}
+
+.botao-entrar {
+  width: 100%;
+  border: none;
+  border-radius: 4px;
+  background: var(--cobre);
+  color: #1B1204;
+  font-family: var(--fonte-corpo);
+  font-weight: 600;
+  font-size: 0.98rem;
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.botao-entrar:hover {
+  background: var(--cobre-claro);
+}
+
+.form-login__rodape {
+  margin: 1.6rem 0 0;
+  text-align: center;
+  font-size: 0.87rem;
+  color: var(--texto-escuro-suave);
+}
+
+.form-login__rodape a {
+  color: var(--cobre);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.form-login__rodape a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Mensagens de feedback (flash) ---------- */
+
+.oculto {
+  display: none !important;
+}
+
+.mensagem {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin: 0 0 1.25rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 4px;
+}
+
+.mensagem--erro {
+  background: rgba(196, 74, 74, 0.12);
+  color: #A83A3A;
+}
+
+.mensagem--sucesso {
+  background: rgba(90, 156, 110, 0.14);
+  color: #2F7A4C;
+}
+
+/* ---------- Cabeçalho da aplicação (páginas internas) ---------- */
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 2rem;
+  background: linear-gradient(175deg, var(--bg-dark) 0%, var(--painel-esquerdo) 100%);
+  color: var(--texto-claro);
+}
+
+.app-header__marca {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--texto-claro);
+  text-decoration: none;
+}
+
+.app-header__marca .marca__icone {
+  color: var(--cobre-claro);
+}
+
+.app-header__nav {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  font-size: 0.88rem;
+}
+
+.app-header__usuario {
+  color: var(--texto-claro-suave);
+}
+
+.app-header__sair {
+  color: var(--cobre-claro);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.app-header__sair:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Container genérico de conteúdo ---------- */
+
+.container {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 4rem;
+}
+
+.container--estreito {
+  max-width: 26rem;
+}
+
+.container__cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.75rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.container__cabecalho h1 {
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin: 0;
+  color: var(--texto-escuro);
+}
+
+.botao-secundario {
+  display: inline-block;
+  border: 1.5px solid var(--cobre);
+  border-radius: 4px;
+  color: var(--cobre);
+  background: transparent;
+  font-family: var(--fonte-corpo);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.6rem 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.botao-secundario:hover {
+  background: var(--cobre);
+  color: #1B1204;
+}
+
+.botao-link {
+  background: none;
+  border: none;
+  color: var(--texto-escuro-suave);
+  font-family: var(--fonte-corpo);
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.botao-link:hover {
+  color: #A83A3A;
+}
+
+/* ---------- Listagem de imóveis ---------- */
+
+.lista-cartoes {
+  display: grid;
+  gap: 1rem;
+}
+
+.cartao {
+  background: #fff;
+  border: 1px solid var(--borda-input);
+  border-radius: 6px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.cartao__info h2 {
+  font-family: var(--fonte-titulo);
+  font-size: 1.05rem;
+  margin: 0 0 0.25rem;
+  color: var(--texto-escuro);
+}
+
+.cartao__info p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--texto-escuro-suave);
+}
+
+.cartao__acoes {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.estado-vazio {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--texto-escuro-suave);
+}
+
+/* ---------- Detalhe do imóvel ---------- */
+
+.subtitulo-pagina {
+  color: var(--texto-escuro-suave);
+  margin: -1rem 0 2rem;
+  font-size: 0.92rem;
+}
+
+.resumo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.resumo-item {
+  background: #fff;
+  border-left: 3px solid var(--cobre);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+}
+
+.resumo-item__rotulo {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--texto-escuro-suave);
+  margin-bottom: 0.3rem;
+}
+
+.resumo-item__valor {
+  font-family: var(--fonte-mono);
+  font-weight: 600;
+  font-size: 1.35rem;
+  color: var(--texto-escuro);
+}
+
+.secao {
+  margin-bottom: 2.5rem;
+}
+
+.secao__cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.secao__cabecalho h3 {
+  font-family: var(--fonte-titulo);
+  font-size: 1.05rem;
+  margin: 0;
+  color: var(--texto-escuro);
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  background: #fff;
+}
+
+.tabela th,
+.tabela td {
+  text-align: left;
+  padding: 0.65rem 0.6rem;
+  border-bottom: 1px solid var(--borda-input);
+}
+
+.tabela th {
+  color: var(--texto-escuro-suave);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* ---------- Gráfico simples de barras (histórico de consumo) ---------- */
+
+.grafico {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  background: #fff;
+  border: 1px solid var(--borda-input);
+  border-radius: 6px;
+  padding: 1.25rem 1.5rem;
+}
+
+.grafico__linha {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr 5rem;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+}
+
+.grafico__barra-trilha {
+  background: var(--borda-input);
+  border-radius: 3px;
+  overflow: hidden;
+  height: 0.6rem;
+}
+
+.grafico__barra {
+  background: var(--cobre);
+  height: 100%;
+  border-radius: 3px;
+}
+
+.grafico__valor {
+  text-align: right;
+  font-family: var(--fonte-mono);
+  color: var(--texto-escuro-suave);
+}
+
+/* ---------- Responsivo ---------- */
+
+@media (max-width: 900px) {
+  .tela {
+    grid-template-columns: 1fr;
+  }
+
+  .painel-info {
+    padding: 2.75rem 1.75rem;
+  }
+
+  .painel-info h1 {
+    font-size: 1.6rem;
+  }
+
+  .medidor__valor {
+    font-size: 2rem;
+  }
+
+  .painel-form {
+    padding: 2.5rem 1.5rem 3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+
+/* CP2 — formulário de dimensionamento fotovoltaico */
+.formulario { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+.formulario label { display: flex; flex-direction: column; gap: .45rem; font-weight: 600; }
+.formulario input, .formulario select { width: 100%; padding: .75rem; border: 1px solid #cbd5e1; border-radius: 8px; font: inherit; }
+.formulario button { align-self: end; }
+.alerta { padding: .9rem; border-left: 4px solid #d97706; background: #fffbeb; border-radius: 5px; }

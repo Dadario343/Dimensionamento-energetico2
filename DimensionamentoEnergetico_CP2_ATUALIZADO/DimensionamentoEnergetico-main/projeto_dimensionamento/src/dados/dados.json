@@ -1,0 +1,55 @@
+{
+    "usuarios": {
+        "prmateus.ofn@gmail.com": {
+            "nome": "Mateus",
+            "senha_hash": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+            "imoveis": [
+                {
+                    "id": 1,
+                    "nome": "Casa",
+                    "endereco": "Rua 1",
+                    "equipamentos": [
+                        {
+                            "nome": "Geladeira",
+                            "potencia_w": 2000.0,
+                            "quantidade": 1,
+                            "horas_dia": 2.0
+                        },
+                        {
+                            "nome": "Computador",
+                            "potencia_w": 500.0,
+                            "quantidade": 3,
+                            "horas_dia": 5.0
+                        },
+                        {
+                            "nome": "Televisão",
+                            "potencia_w": 600.0,
+                            "quantidade": 2,
+                            "horas_dia": 4.0
+                        }
+                    ],
+                    "historico_consumo": [
+                        {
+                            "mes": "Março/2024",
+                            "consumo_kwh": 489.0
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "nome": "Apartamento praia",
+                    "endereco": "Rua da praia",
+                    "equipamentos": [],
+                    "historico_consumo": []
+                },
+                {
+                    "id": 3,
+                    "nome": "Loja",
+                    "endereco": "Rua da europa",
+                    "equipamentos": [],
+                    "historico_consumo": []
+                }
+            ]
+        }
+    }
+}

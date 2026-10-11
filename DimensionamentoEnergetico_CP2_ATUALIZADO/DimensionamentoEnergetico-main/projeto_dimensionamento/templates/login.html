@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block titulo %}Entrar — Dimensionamento Energético{% endblock %}
+{% block conteudo %}
+<main class="tela">
+
+  <section class="painel-info" aria-hidden="true">
+    <div class="painel-info__trilhas">
+      <svg viewBox="0 0 400 600" preserveAspectRatio="none">
+        <path d="M0 90 H140 L170 120 V220 L200 250 H400" />
+        <path d="M0 320 H90 L120 350 V470 L150 500 H400" />
+        <path d="M0 460 H60 V560" />
+        <path d="M260 0 V60 L290 90 H400" />
+        <circle cx="140" cy="90" r="4" />
+        <circle cx="170" cy="220" r="4" />
+        <circle cx="200" cy="250" r="4" />
+        <circle cx="90" cy="320" r="4" />
+        <circle cx="120" cy="470" r="4" />
+        <circle cx="60" cy="460" r="4" />
+        <circle cx="260" cy="60" r="4" />
+        <circle cx="290" cy="90" r="4" />
+      </svg>
+    </div>
+
+    <div class="painel-info__conteudo">
+      <p class="marca">
+        <span class="marca__icone">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 2 L4 14 H11 L10 22 L20 9 H13 L13 2Z" fill="currentColor" />
+          </svg>
+        </span>
+        Dimensionamento Energético
+      </p>
+
+      <h1>Entenda o consumo de energia dos seus imóveis antes que a conta chegue.</h1>
+
+      <p class="descricao">
+        Cadastre seus equipamentos, acompanhe o histórico mensal e veja onde
+        está o maior gasto de energia da sua casa.
+      </p>
+
+      <div class="medidor">
+        <span class="medidor__rotulo">consumo médio mensal estimado</span>
+        <span class="medidor__valor">148<span class="medidor__decimal">.2</span> <span
+            class="medidor__unidade">kWh</span></span>
+        <span class="medidor__pico">pico em julho — 210.4 kWh</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="painel-form">
+    <form class="form-login" method="post" novalidate>
+      <header class="form-login__cabecalho">
+        <h2>Entrar na conta</h2>
+        <p>Acesse seus imóveis e acompanhe o consumo de energia.</p>
+      </header>
+
+      <div class="campo">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" placeholder="voce@email.com" autocomplete="email" required />
+      </div>
+
+      <div class="campo">
+        <label for="senha">Senha</label>
+        <div class="campo__senha">
+          <input type="password" id="senha" name="senha" placeholder="Digite sua senha" autocomplete="current-password"
+            required />
+          <button type="button" class="botao-olho" id="botaoMostrarSenha" aria-label="Mostrar senha"
+            aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 12C4 7 8 4.5 12 4.5C16 4.5 20 7 22 12C20 17 16 19.5 12 19.5C8 19.5 4 17 2 12Z"
+                stroke="currentColor" stroke-width="1.6" />
+              <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" class="botao-entrar">Entrar</button>
+
+      <p class="form-login__rodape">
+        Ainda não tem conta?
+        <a href="{{ url_for('cadastro') }}">Cadastre-se</a>
+      </p>
+    </form>
+  </section>
+
+</main>
+
+<script>
+  const botaoOlho = document.getElementById("botaoMostrarSenha");
+  const campoSenha = document.getElementById("senha");
+
+  botaoOlho.addEventListener("click", () => {
+    const visivel = campoSenha.type === "text";
+    campoSenha.type = visivel ? "password" : "text";
+    botaoOlho.setAttribute("aria-pressed", String(!visivel));
+    botaoOlho.setAttribute("aria-label", visivel ? "Mostrar senha" : "Ocultar senha");
+    botaoOlho.classList.toggle("botao-olho--ativo", !visivel);
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block titulo %}{{ imovel.nome }} — Dimensionamento Energético{% endblock %}
+{% block conteudo %}
+<div class="container">
+  <div class="container__cabecalho">
+    <h1>{{ imovel.nome }}</h1>
+    <a class="botao-secundario" href="{{ url_for('listar_imoveis') }}">Voltar</a>
+  </div>
+  <p class="subtitulo-pagina">{{ imovel.endereco or "Sem endereço cadastrado" }}</p>
+
+  <div class="resumo-grid">
+    <div class="resumo-item">
+      <span class="resumo-item__rotulo">consumo estimado (equipamentos)</span>
+      <span class="resumo-item__valor">{{ "%.2f"|format(consumo_estimado) }} kWh</span>
+    </div>
+    {% if resumo %}
+    <div class="resumo-item">
+      <span class="resumo-item__rotulo">maior consumo registrado</span>
+      <span class="resumo-item__valor">{{ "%.2f"|format(resumo.maior_consumo) }} kWh</span>
+    </div>
+    <div class="resumo-item">
+      <span class="resumo-item__rotulo">mês de pico</span>
+      <span class="resumo-item__valor">{{ resumo.mes_maior_consumo }}</span>
+    </div>
+    <div class="resumo-item">
+      <span class="resumo-item__rotulo">consumo médio mensal</span>
+      <span class="resumo-item__valor">{{ "%.2f"|format(resumo.consumo_medio) }} kWh</span>
+    </div>
+    {% endif %}
+  </div>
+
+  <section class="secao">
+    <div class="secao__cabecalho">
+      <h3>Energia solar fotovoltaica</h3>
+      <a class="botao-secundario" href="{{ url_for('dimensionar_fotovoltaico', id_imovel=imovel.id) }}">Dimensionar sistema solar</a>
+    </div>
+    <p>Gere uma proposta preliminar de módulos, inversor, armazenamento opcional e orçamento com base no consumo deste imóvel.</p>
+  </section>
+
+  <section class="secao">
+    <div class="secao__cabecalho">
+      <h3>Equipamentos</h3>
+      <a class="botao-secundario" href="{{ url_for('novo_equipamento', id_imovel=imovel.id) }}">+ Cadastrar
+        equipamento</a>
+    </div>
+
+    {% if imovel.equipamentos %}
+    <table class="tabela">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Potência</th>
+          <th>Qtd.</th>
+          <th>Uso diário</th>
+          <th>Consumo/mês</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for equipamento in imovel.equipamentos %}
+        {% set consumo_eq = (equipamento.potencia_w / 1000) * equipamento.quantidade * equipamento.horas_dia * 30 %}
+        <tr>
+          <td>{{ equipamento.nome }}</td>
+          <td>{{ equipamento.potencia_w }} W</td>
+          <td>{{ equipamento.quantidade }}</td>
+          <td>{{ equipamento.horas_dia }} h/dia</td>
+          <td>{{ "%.2f"|format(consumo_eq) }} kWh</td>
+          <td>
+            <form method="post" action="{{ url_for('remover_equipamento', id_imovel=imovel.id, indice=loop.index0) }}"
+              onsubmit="return confirm('Remover este equipamento?');">
+              <button type="submit" class="botao-link">Remover</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="estado-vazio">Nenhum equipamento cadastrado neste imóvel.</p>
+    {% endif %}
+  </section>
+
+  <section class="secao">
+    <div class="secao__cabecalho">
+      <h3>Histórico de consumo</h3>
+      <a class="botao-secundario" href="{{ url_for('novo_consumo', id_imovel=imovel.id) }}">+ Registrar consumo
+        mensal</a>
+    </div>
+
+    {% if historico %}
+    <div class="grafico">
+      {% for registro in historico %}
+      <div class="grafico__linha">
+        <span>{{ registro.mes }}</span>
+        <span class="grafico__barra-trilha">
+          <span class="grafico__barra"
+            style="width: {{ (registro.consumo_kwh / maior_valor * 100) if maior_valor else 0 }}%;"></span>
+        </span>
+        <span class="grafico__valor">{{ "%.1f"|format(registro.consumo_kwh) }} kWh</span>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="estado-vazio">Nenhum consumo registrado ainda.</p>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

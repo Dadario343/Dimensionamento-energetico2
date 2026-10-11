@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block titulo %}Dimensionamento Energético{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  {% if session.get('email_usuario') %}
+  <header class="app-header">
+    <a class="app-header__marca" href="{{ url_for('listar_imoveis') }}">
+      <span class="marca__icone">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 2 L4 14 H11 L10 22 L20 9 H13 L13 2Z" fill="currentColor"/>
+        </svg>
+      </span>
+      Dimensionamento Energético
+    </a>
+    <nav class="app-header__nav">
+      <span class="app-header__usuario">{{ session.get('nome_usuario') }}</span>
+      <a href="{{ url_for('logout') }}" class="app-header__sair">Sair</a>
+    </nav>
+  </header>
+  {% endif %}
+
+  <div class="app-conteudo">
+    {% with mensagens = get_flashed_messages(with_categories=true) %}
+      {% if mensagens %}
+        <div class="container container--estreito" style="padding-bottom:0;">
+          {% for categoria, texto in mensagens %}
+            <p class="mensagem mensagem--{{ categoria }}">{{ texto }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block conteudo %}{% endblock %}
+  </div>
+</body>
+</html>
