@@ -29,7 +29,7 @@ Sistema para estimativa do consumo médio mensal de energia elétrica de uma res
 
 A documentação completa (arquitetura, fórmulas, datasets, cenários de teste, limitações e fontes) está em PDF:
 
-**[Documentacao_Projeto.pdf](projeto_dimensionamento/docs/Documentacao_Projeto.pdf)**
+**[Documentacao_Projeto.pdf](Documentacao_Projeto.pdf)**
 
 Resumo do que o documento cobre:
 
